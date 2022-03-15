@@ -45,8 +45,8 @@ func countPairsOfShoes(data []byte) {
 			lefts[v.Number]++
 		}
 
-		min = isLessThan(min, v.Number)
-		max = isGreaterThan(max, v.Number)
+		min = chooseMinor(min, v.Number)
+		max = chooseGreater(max, v.Number)
 	}
 
 	for i := min; i <= max; i++ {
@@ -54,21 +54,21 @@ func countPairsOfShoes(data []byte) {
 		_, leftHasKey := lefts[i]
 
 		if rightHasKey && leftHasKey {
-			pairsCounter += isLessThan(rights[i], lefts[i])
+			pairsCounter += chooseMinor(rights[i], lefts[i])
 		}
 	}
 
 	fmt.Println(pairsCounter)
 }
 
-func isLessThan(n1 int, n2 int) int {
-	if n2 < n1 || n1 == 0 {
+func chooseMinor(n1 int, n2 int) int {
+	if n1 == 0 || n1 == n2 || n2 < n1 {
 		n1 = n2
 	}
 	return n1
 }
 
-func isGreaterThan(n1 int, n2 int) int {
+func chooseGreater(n1 int, n2 int) int {
 	if n2 > n1 {
 		n1 = n2
 	}
